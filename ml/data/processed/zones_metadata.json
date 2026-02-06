@@ -1,0 +1,72 @@
+{
+  "BF_001": {
+    "name": "Downtown Pike St",
+    "lat": 47.6062,
+    "lon": -122.3321,
+    "capacity": 20,
+    "type": "commercial"
+  },
+  "BF_002": {
+    "name": "Downtown 1st Ave",
+    "lat": 47.6065,
+    "lon": -122.334,
+    "capacity": 18,
+    "type": "commercial"
+  },
+  "BF_003": {
+    "name": "Downtown 3rd Ave",
+    "lat": 47.607,
+    "lon": -122.336,
+    "capacity": 22,
+    "type": "commercial"
+  },
+  "BF_045": {
+    "name": "Stadium District - Occidental",
+    "lat": 47.5952,
+    "lon": -122.3316,
+    "capacity": 35,
+    "type": "event"
+  },
+  "BF_046": {
+    "name": "Stadium District - 1st Ave S",
+    "lat": 47.5948,
+    "lon": -122.333,
+    "capacity": 30,
+    "type": "event"
+  },
+  "BF_120": {
+    "name": "Capitol Hill - Broadway",
+    "lat": 47.6205,
+    "lon": -122.3212,
+    "capacity": 25,
+    "type": "mixed"
+  },
+  "BF_121": {
+    "name": "Capitol Hill - Pike St",
+    "lat": 47.6145,
+    "lon": -122.32,
+    "capacity": 20,
+    "type": "mixed"
+  },
+  "BF_200": {
+    "name": "University District - University Way",
+    "lat": 47.6615,
+    "lon": -122.3132,
+    "capacity": 28,
+    "type": "commercial"
+  },
+  "BF_201": {
+    "name": "University District - 45th St",
+    "lat": 47.662,
+    "lon": -122.314,
+    "capacity": 24,
+    "type": "commercial"
+  },
+  "BF_202": {
+    "name": "Fremont - Fremont Ave",
+    "lat": 47.6505,
+    "lon": -122.3493,
+    "capacity": 18,
+    "type": "mixed"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "trained_at": "2026-02-07T00:53:45.557548",
+  "model_type": "RandomForestRegressor",
+  "model_params": {
+    "n_estimators": 100,
+    "max_depth": 15,
+    "min_samples_split": 10,
+    "random_state": 42,
+    "n_jobs": -1
+  },
+  "features": [
+    "hour",
+    "day_of_week",
+    "is_weekend",
+    "month",
+    "is_rush_hour",
+    "avg_same_hour",
+    "std_same_hour",
+    "trend_24h",
+    "occupancy_1h_ago",
+    "occupancy_24h_ago",
+    "occupancy_7d_ago",
+    "has_event",
+    "hours_until_event",
+    "zone_type_encoded",
+    "total_capacity"
+  ],
+  "metrics": {
+    "mae": 0.05815547594443847,
+    "rmse": 0.07479560322992851,
+    "r2": 0.7720557844514288
+  },
+  "feature_importance": {
+    "avg_same_hour": 0.9706798416174541,
+    "month": 0.013477482336875565,
+    "std_same_hour": 0.005197777090687389,
+    "hour": 0.0030775744198023106,
+    "day_of_week": 0.0016116739037612814,
+    "total_capacity": 0.001408051085606961,
+    "occupancy_7d_ago": 0.0010183566645474138,
+    "occupancy_1h_ago": 0.0009122286354635445,
+    "zone_type_encoded": 0.0008379583884359947,
+    "occupancy_24h_ago": 0.0007887662061802834,
+    "hours_until_event": 0.0005486583971712972,
+    "has_event": 0.00017086042114292118,
+    "is_rush_hour": 0.00014237798865419183,
+    "is_weekend": 0.000128392844216625,
+    "trend_24h": 0.0
+  }
+}

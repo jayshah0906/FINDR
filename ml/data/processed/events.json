@@ -1,0 +1,698 @@
+[
+  {
+    "event_id": "NFL_2026_001",
+    "event_name": "Seahawks vs Super Bowl LX Watch Party",
+    "event_type": "sports",
+    "venue": "Lumen Field",
+    "date": "2026-02-08",
+    "start_time": "15:30",
+    "expected_attendance": 50000,
+    "nearby_zones": [
+      "BF_045",
+      "BF_046",
+      "BF_047",
+      "BF_048"
+    ],
+    "impact_level": "very_high"
+  },
+  {
+    "event_id": "NFL_2026_002",
+    "event_name": "Seahawks vs 49ers",
+    "event_type": "sports",
+    "venue": "Lumen Field",
+    "date": "2026-09-13",
+    "start_time": "13:00",
+    "expected_attendance": 68000,
+    "nearby_zones": [
+      "BF_045",
+      "BF_046",
+      "BF_047",
+      "BF_048"
+    ],
+    "impact_level": "very_high"
+  },
+  {
+    "event_id": "NFL_2026_003",
+    "event_name": "Seahawks vs Rams",
+    "event_type": "sports",
+    "venue": "Lumen Field",
+    "date": "2026-09-20",
+    "start_time": "13:00",
+    "expected_attendance": 68000,
+    "nearby_zones": [
+      "BF_045",
+      "BF_046",
+      "BF_047",
+      "BF_048"
+    ],
+    "impact_level": "very_high"
+  },
+  {
+    "event_id": "NFL_2026_004",
+    "event_name": "Seahawks vs Cardinals",
+    "event_type": "sports",
+    "venue": "Lumen Field",
+    "date": "2026-10-04",
+    "start_time": "13:00",
+    "expected_attendance": 68000,
+    "nearby_zones": [
+      "BF_045",
+      "BF_046",
+      "BF_047",
+      "BF_048"
+    ],
+    "impact_level": "very_high"
+  },
+  {
+    "event_id": "NFL_2026_005",
+    "event_name": "Seahawks vs Cowboys",
+    "event_type": "sports",
+    "venue": "Lumen Field",
+    "date": "2026-10-18",
+    "start_time": "16:05",
+    "expected_attendance": 68000,
+    "nearby_zones": [
+      "BF_045",
+      "BF_046",
+      "BF_047",
+      "BF_048"
+    ],
+    "impact_level": "very_high"
+  },
+  {
+    "event_id": "NFL_2026_006",
+    "event_name": "Seahawks vs Bills",
+    "event_type": "sports",
+    "venue": "Lumen Field",
+    "date": "2026-11-01",
+    "start_time": "13:00",
+    "expected_attendance": 68000,
+    "nearby_zones": [
+      "BF_045",
+      "BF_046",
+      "BF_047",
+      "BF_048"
+    ],
+    "impact_level": "very_high"
+  },
+  {
+    "event_id": "NFL_2026_007",
+    "event_name": "Seahawks vs Chiefs",
+    "event_type": "sports",
+    "venue": "Lumen Field",
+    "date": "2026-11-15",
+    "start_time": "13:00",
+    "expected_attendance": 68000,
+    "nearby_zones": [
+      "BF_045",
+      "BF_046",
+      "BF_047",
+      "BF_048"
+    ],
+    "impact_level": "very_high"
+  },
+  {
+    "event_id": "NFL_2026_008",
+    "event_name": "Seahawks vs Raiders",
+    "event_type": "sports",
+    "venue": "Lumen Field",
+    "date": "2026-11-29",
+    "start_time": "13:00",
+    "expected_attendance": 68000,
+    "nearby_zones": [
+      "BF_045",
+      "BF_046",
+      "BF_047",
+      "BF_048"
+    ],
+    "impact_level": "very_high"
+  },
+  {
+    "event_id": "NFL_2026_009",
+    "event_name": "Seahawks vs Packers",
+    "event_type": "sports",
+    "venue": "Lumen Field",
+    "date": "2026-12-13",
+    "start_time": "16:05",
+    "expected_attendance": 68000,
+    "nearby_zones": [
+      "BF_045",
+      "BF_046",
+      "BF_047",
+      "BF_048"
+    ],
+    "impact_level": "very_high"
+  },
+  {
+    "event_id": "NFL_2026_010",
+    "event_name": "Seahawks vs Vikings",
+    "event_type": "sports",
+    "venue": "Lumen Field",
+    "date": "2026-12-27",
+    "start_time": "13:00",
+    "expected_attendance": 68000,
+    "nearby_zones": [
+      "BF_045",
+      "BF_046",
+      "BF_047",
+      "BF_048"
+    ],
+    "impact_level": "very_high"
+  },
+  {
+    "event_id": "MLB_2026_001",
+    "event_name": "Mariners vs Angels",
+    "event_type": "sports",
+    "venue": "T-Mobile Park",
+    "date": "2026-04-03",
+    "start_time": "19:10",
+    "expected_attendance": 35000,
+    "nearby_zones": [
+      "BF_045",
+      "BF_046",
+      "BF_047",
+      "BF_048"
+    ],
+    "impact_level": "medium"
+  },
+  {
+    "event_id": "MLB_2026_002",
+    "event_name": "Mariners vs Yankees",
+    "event_type": "sports",
+    "venue": "T-Mobile Park",
+    "date": "2026-04-17",
+    "start_time": "19:10",
+    "expected_attendance": 45000,
+    "nearby_zones": [
+      "BF_045",
+      "BF_046",
+      "BF_047",
+      "BF_048"
+    ],
+    "impact_level": "high"
+  },
+  {
+    "event_id": "MLB_2026_003",
+    "event_name": "Mariners vs Red Sox",
+    "event_type": "sports",
+    "venue": "T-Mobile Park",
+    "date": "2026-05-01",
+    "start_time": "19:10",
+    "expected_attendance": 42000,
+    "nearby_zones": [
+      "BF_045",
+      "BF_046",
+      "BF_047",
+      "BF_048"
+    ],
+    "impact_level": "high"
+  },
+  {
+    "event_id": "MLB_2026_004",
+    "event_name": "Mariners vs Astros",
+    "event_type": "sports",
+    "venue": "T-Mobile Park",
+    "date": "2026-05-15",
+    "start_time": "19:10",
+    "expected_attendance": 40000,
+    "nearby_zones": [
+      "BF_045",
+      "BF_046",
+      "BF_047",
+      "BF_048"
+    ],
+    "impact_level": "medium"
+  },
+  {
+    "event_id": "MLB_2026_005",
+    "event_name": "Mariners vs Blue Jays",
+    "event_type": "sports",
+    "venue": "T-Mobile Park",
+    "date": "2026-05-29",
+    "start_time": "19:10",
+    "expected_attendance": 38000,
+    "nearby_zones": [
+      "BF_045",
+      "BF_046",
+      "BF_047",
+      "BF_048"
+    ],
+    "impact_level": "medium"
+  },
+  {
+    "event_id": "MLB_2026_006",
+    "event_name": "Mariners vs Dodgers",
+    "event_type": "sports",
+    "venue": "T-Mobile Park",
+    "date": "2026-06-12",
+    "start_time": "19:10",
+    "expected_attendance": 43000,
+    "nearby_zones": [
+      "BF_045",
+      "BF_046",
+      "BF_047",
+      "BF_048"
+    ],
+    "impact_level": "high"
+  },
+  {
+    "event_id": "MLB_2026_007",
+    "event_name": "Mariners vs Giants",
+    "event_type": "sports",
+    "venue": "T-Mobile Park",
+    "date": "2026-06-26",
+    "start_time": "19:10",
+    "expected_attendance": 39000,
+    "nearby_zones": [
+      "BF_045",
+      "BF_046",
+      "BF_047",
+      "BF_048"
+    ],
+    "impact_level": "medium"
+  },
+  {
+    "event_id": "MLB_2026_008",
+    "event_name": "Mariners vs Athletics",
+    "event_type": "sports",
+    "venue": "T-Mobile Park",
+    "date": "2026-07-04",
+    "start_time": "13:10",
+    "expected_attendance": 40000,
+    "nearby_zones": [
+      "BF_045",
+      "BF_046",
+      "BF_047",
+      "BF_048"
+    ],
+    "impact_level": "medium"
+  },
+  {
+    "event_id": "MLB_2026_009",
+    "event_name": "Mariners vs Rangers",
+    "event_type": "sports",
+    "venue": "T-Mobile Park",
+    "date": "2026-07-17",
+    "start_time": "19:10",
+    "expected_attendance": 37000,
+    "nearby_zones": [
+      "BF_045",
+      "BF_046",
+      "BF_047",
+      "BF_048"
+    ],
+    "impact_level": "medium"
+  },
+  {
+    "event_id": "MLB_2026_010",
+    "event_name": "Mariners vs Padres",
+    "event_type": "sports",
+    "venue": "T-Mobile Park",
+    "date": "2026-07-31",
+    "start_time": "19:10",
+    "expected_attendance": 38000,
+    "nearby_zones": [
+      "BF_045",
+      "BF_046",
+      "BF_047",
+      "BF_048"
+    ],
+    "impact_level": "medium"
+  },
+  {
+    "event_id": "MLB_2026_011",
+    "event_name": "Mariners vs Mets",
+    "event_type": "sports",
+    "venue": "T-Mobile Park",
+    "date": "2026-08-14",
+    "start_time": "19:10",
+    "expected_attendance": 36000,
+    "nearby_zones": [
+      "BF_045",
+      "BF_046",
+      "BF_047",
+      "BF_048"
+    ],
+    "impact_level": "medium"
+  },
+  {
+    "event_id": "MLB_2026_012",
+    "event_name": "Mariners vs Cubs",
+    "event_type": "sports",
+    "venue": "T-Mobile Park",
+    "date": "2026-08-28",
+    "start_time": "19:10",
+    "expected_attendance": 39000,
+    "nearby_zones": [
+      "BF_045",
+      "BF_046",
+      "BF_047",
+      "BF_048"
+    ],
+    "impact_level": "medium"
+  },
+  {
+    "event_id": "MLB_2026_013",
+    "event_name": "Mariners vs Cardinals",
+    "event_type": "sports",
+    "venue": "T-Mobile Park",
+    "date": "2026-09-11",
+    "start_time": "19:10",
+    "expected_attendance": 37000,
+    "nearby_zones": [
+      "BF_045",
+      "BF_046",
+      "BF_047",
+      "BF_048"
+    ],
+    "impact_level": "medium"
+  },
+  {
+    "event_id": "MLB_2026_014",
+    "event_name": "Mariners vs Diamondbacks",
+    "event_type": "sports",
+    "venue": "T-Mobile Park",
+    "date": "2026-09-25",
+    "start_time": "19:10",
+    "expected_attendance": 35000,
+    "nearby_zones": [
+      "BF_045",
+      "BF_046",
+      "BF_047",
+      "BF_048"
+    ],
+    "impact_level": "medium"
+  },
+  {
+    "event_id": "MLS_2026_001",
+    "event_name": "Sounders vs LA Galaxy",
+    "event_type": "sports",
+    "venue": "Lumen Field",
+    "date": "2026-03-07",
+    "start_time": "19:00",
+    "expected_attendance": 35000,
+    "nearby_zones": [
+      "BF_045",
+      "BF_046",
+      "BF_047",
+      "BF_048"
+    ],
+    "impact_level": "high"
+  },
+  {
+    "event_id": "MLS_2026_002",
+    "event_name": "Sounders vs Portland Timbers",
+    "event_type": "sports",
+    "venue": "Lumen Field",
+    "date": "2026-04-11",
+    "start_time": "19:00",
+    "expected_attendance": 40000,
+    "nearby_zones": [
+      "BF_045",
+      "BF_046",
+      "BF_047",
+      "BF_048"
+    ],
+    "impact_level": "high"
+  },
+  {
+    "event_id": "MLS_2026_003",
+    "event_name": "Sounders vs LAFC",
+    "event_type": "sports",
+    "venue": "Lumen Field",
+    "date": "2026-05-09",
+    "start_time": "19:00",
+    "expected_attendance": 38000,
+    "nearby_zones": [
+      "BF_045",
+      "BF_046",
+      "BF_047",
+      "BF_048"
+    ],
+    "impact_level": "high"
+  },
+  {
+    "event_id": "MLS_2026_004",
+    "event_name": "Sounders vs Vancouver Whitecaps",
+    "event_type": "sports",
+    "venue": "Lumen Field",
+    "date": "2026-06-06",
+    "start_time": "19:00",
+    "expected_attendance": 36000,
+    "nearby_zones": [
+      "BF_045",
+      "BF_046",
+      "BF_047",
+      "BF_048"
+    ],
+    "impact_level": "high"
+  },
+  {
+    "event_id": "MLS_2026_005",
+    "event_name": "Sounders vs Inter Miami",
+    "event_type": "sports",
+    "venue": "Lumen Field",
+    "date": "2026-07-11",
+    "start_time": "19:00",
+    "expected_attendance": 42000,
+    "nearby_zones": [
+      "BF_045",
+      "BF_046",
+      "BF_047",
+      "BF_048"
+    ],
+    "impact_level": "high"
+  },
+  {
+    "event_id": "MLS_2026_006",
+    "event_name": "Sounders vs Atlanta United",
+    "event_type": "sports",
+    "venue": "Lumen Field",
+    "date": "2026-08-08",
+    "start_time": "19:00",
+    "expected_attendance": 35000,
+    "nearby_zones": [
+      "BF_045",
+      "BF_046",
+      "BF_047",
+      "BF_048"
+    ],
+    "impact_level": "high"
+  },
+  {
+    "event_id": "CONCERT_2026_001",
+    "event_name": "Taylor Swift - Eras Tour",
+    "event_type": "concert",
+    "venue": "Lumen Field",
+    "date": "2026-07-25",
+    "start_time": "19:00",
+    "expected_attendance": 70000,
+    "nearby_zones": [
+      "BF_045",
+      "BF_046",
+      "BF_047",
+      "BF_048"
+    ],
+    "impact_level": "very_high"
+  },
+  {
+    "event_id": "CONCERT_2026_002",
+    "event_name": "Coldplay - Music of the Spheres",
+    "event_type": "concert",
+    "venue": "Lumen Field",
+    "date": "2026-08-15",
+    "start_time": "19:30",
+    "expected_attendance": 68000,
+    "nearby_zones": [
+      "BF_045",
+      "BF_046",
+      "BF_047",
+      "BF_048"
+    ],
+    "impact_level": "very_high"
+  },
+  {
+    "event_id": "CONCERT_2026_003",
+    "event_name": "Ed Sheeran - Mathematics Tour",
+    "event_type": "concert",
+    "venue": "Climate Pledge Arena",
+    "date": "2026-06-20",
+    "start_time": "20:00",
+    "expected_attendance": 18000,
+    "nearby_zones": [
+      "BF_120",
+      "BF_121",
+      "BF_122"
+    ],
+    "impact_level": "high"
+  },
+  {
+    "event_id": "CONCERT_2026_004",
+    "event_name": "Beyonc\u00e9 - Renaissance World Tour",
+    "event_type": "concert",
+    "venue": "Lumen Field",
+    "date": "2026-09-05",
+    "start_time": "19:00",
+    "expected_attendance": 68000,
+    "nearby_zones": [
+      "BF_045",
+      "BF_046",
+      "BF_047",
+      "BF_048"
+    ],
+    "impact_level": "very_high"
+  },
+  {
+    "event_id": "CONCERT_2026_005",
+    "event_name": "The Weeknd - After Hours Tour",
+    "event_type": "concert",
+    "venue": "Climate Pledge Arena",
+    "date": "2026-10-10",
+    "start_time": "20:00",
+    "expected_attendance": 18000,
+    "nearby_zones": [
+      "BF_120",
+      "BF_121",
+      "BF_122"
+    ],
+    "impact_level": "high"
+  },
+  {
+    "event_id": "FEST_2026_001",
+    "event_name": "Seattle International Film Festival",
+    "event_type": "festival",
+    "venue": "Capitol Hill",
+    "date": "2026-05-16",
+    "start_time": "10:00",
+    "expected_attendance": 30000,
+    "nearby_zones": [
+      "BF_120",
+      "BF_121",
+      "BF_122"
+    ],
+    "impact_level": "high"
+  },
+  {
+    "event_id": "FEST_2026_002",
+    "event_name": "University District Street Fair",
+    "event_type": "festival",
+    "venue": "University District",
+    "date": "2026-05-23",
+    "start_time": "10:00",
+    "expected_attendance": 65000,
+    "nearby_zones": [
+      "BF_200",
+      "BF_201",
+      "BF_202"
+    ],
+    "impact_level": "very_high"
+  },
+  {
+    "event_id": "FEST_2026_003",
+    "event_name": "Fremont Solstice Parade",
+    "event_type": "festival",
+    "venue": "Fremont",
+    "date": "2026-06-20",
+    "start_time": "13:00",
+    "expected_attendance": 30000,
+    "nearby_zones": [
+      "BF_202",
+      "BF_203"
+    ],
+    "impact_level": "high"
+  },
+  {
+    "event_id": "FEST_2026_004",
+    "event_name": "Capitol Hill Block Party",
+    "event_type": "festival",
+    "venue": "Capitol Hill",
+    "date": "2026-07-24",
+    "start_time": "12:00",
+    "expected_attendance": 25000,
+    "nearby_zones": [
+      "BF_120",
+      "BF_121",
+      "BF_122"
+    ],
+    "impact_level": "high"
+  },
+  {
+    "event_id": "FEST_2026_005",
+    "event_name": "Seafair Weekend Festival",
+    "event_type": "festival",
+    "venue": "Downtown Waterfront",
+    "date": "2026-08-01",
+    "start_time": "10:00",
+    "expected_attendance": 50000,
+    "nearby_zones": [
+      "BF_001",
+      "BF_002",
+      "BF_003",
+      "BF_045"
+    ],
+    "impact_level": "very_high"
+  },
+  {
+    "event_id": "FEST_2026_006",
+    "event_name": "Bumbershoot Music Festival",
+    "event_type": "festival",
+    "venue": "Seattle Center",
+    "date": "2026-09-04",
+    "start_time": "11:00",
+    "expected_attendance": 40000,
+    "nearby_zones": [
+      "BF_120",
+      "BF_121",
+      "BF_122"
+    ],
+    "impact_level": "very_high"
+  },
+  {
+    "event_id": "SPECIAL_2026_001",
+    "event_name": "Tech Innovation Summit 2026",
+    "event_type": "conference",
+    "venue": "Washington State Convention Center",
+    "date": "2026-02-07",
+    "start_time": "09:00",
+    "expected_attendance": 15000,
+    "nearby_zones": [
+      "BF_001",
+      "BF_002",
+      "BF_003",
+      "BF_004"
+    ],
+    "impact_level": "high"
+  },
+  {
+    "event_id": "SPECIAL_2026_002",
+    "event_name": "Seattle Marathon",
+    "event_type": "sports",
+    "venue": "Downtown Seattle",
+    "date": "2026-11-29",
+    "start_time": "07:00",
+    "expected_attendance": 25000,
+    "nearby_zones": [
+      "BF_001",
+      "BF_002",
+      "BF_003",
+      "BF_004",
+      "BF_005"
+    ],
+    "impact_level": "very_high"
+  },
+  {
+    "event_id": "SPECIAL_2026_003",
+    "event_name": "New Year's Eve at Space Needle",
+    "event_type": "celebration",
+    "venue": "Seattle Center",
+    "date": "2026-12-31",
+    "start_time": "20:00",
+    "expected_attendance": 35000,
+    "nearby_zones": [
+      "BF_120",
+      "BF_121",
+      "BF_122"
+    ],
+    "impact_level": "very_high"
+  }
+]
