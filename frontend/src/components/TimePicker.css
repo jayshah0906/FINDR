@@ -1,0 +1,39 @@
+.time-picker {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.time-picker-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.time-picker-label {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.time-picker-input,
+.time-picker-select {
+  padding: 0.75rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: white;
+  transition: border-color 0.2s;
+}
+
+.time-picker-input:hover,
+.time-picker-select:hover {
+  border-color: #667eea;
+}
+
+.time-picker-input:focus,
+.time-picker-select:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}

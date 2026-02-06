@@ -1,0 +1,9 @@
+id,name,zone_id,date,start_time,end_time,expected_impact
+1,Music Festival,1,2026-02-07,18:00,22:00,High
+2,Business Conference,2,2026-02-07,09:00,17:00,Medium
+3,Weekend Market,3,2026-02-08,10:00,16:00,High
+4,Sports Event,1,2026-02-10,19:00,22:00,High
+5,Art Exhibition,3,2026-02-12,10:00,18:00,Medium
+6,Food Festival,4,2026-02-14,12:00,20:00,High
+7,Concert,5,2026-02-15,20:00,23:00,High
+8,Workshop,2,2026-02-16,14:00,17:00,Low

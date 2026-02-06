@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "name": "Downtown",
+    "lat": 40.7128,
+    "lng": -74.0060,
+    "description": "Central business district with high parking demand during work hours"
+  },
+  {
+    "id": 2,
+    "name": "Business District",
+    "lat": 40.7589,
+    "lng": -73.9851,
+    "description": "Commercial area with office buildings and corporate centers"
+  },
+  {
+    "id": 3,
+    "name": "Shopping Mall",
+    "lat": 40.7505,
+    "lng": -73.9934,
+    "description": "Shopping complex with peak demand on weekends and holidays"
+  },
+  {
+    "id": 4,
+    "name": "Residential Area",
+    "lat": 40.7282,
+    "lng": -73.9942,
+    "description": "Residential neighborhood with moderate parking needs"
+  },
+  {
+    "id": 5,
+    "name": "University Campus",
+    "lat": 40.8075,
+    "lng": -73.9625,
+    "description": "Educational institution with high demand during class hours"
+  }
+]
