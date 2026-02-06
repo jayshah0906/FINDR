@@ -4,6 +4,21 @@ from typing import Optional
 from pydantic_settings import BaseSettings
 
 
+def _project_root():
+    """Project root (parent of backend/)."""
+    backend_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    return os.path.dirname(backend_dir)
+
+
+def _ml_paths():
+    """Paths to ML model and data (from project root)."""
+    root = _project_root()
+    return {
+        "model": os.path.join(root, "ml", "models", "parking_model.pkl"),
+        "data_dir": os.path.join(root, "ml", "data", "processed"),
+    }
+
+
 class Settings(BaseSettings):
     """Application settings."""
     
@@ -18,11 +33,24 @@ class Settings(BaseSettings):
         "sqlite:///./parking_prediction.db"
     )
     
-    # Model Settings
+    # Model Settings (legacy; used only if ML not enabled)
     MODEL_PATH: str = os.getenv(
         "MODEL_PATH",
         "../models_store/parking_model.pkl"
     )
+    
+    # ML integration: paths and zone mapping
+    USE_ML_MODEL: bool = os.getenv("USE_ML_MODEL", "true").lower() in ("true", "1", "yes")
+    ML_MODEL_PATH: str = os.getenv("ML_MODEL_PATH", _ml_paths()["model"])
+    ML_DATA_DIR: str = os.getenv("ML_DATA_DIR", _ml_paths()["data_dir"])
+    # Map backend zone_id (1-5) to ML zone_id (e.g. BF_001)
+    ML_ZONE_ID_MAP: dict = {
+        1: "BF_001",
+        2: "BF_002",
+        3: "BF_003",
+        4: "BF_120",
+        5: "BF_200",
+    }
     
     # Data Paths
     DATA_DIR: str = os.getenv("DATA_DIR", "../data")

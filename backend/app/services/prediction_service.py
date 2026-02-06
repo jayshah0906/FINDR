@@ -1,40 +1,57 @@
 """Prediction service for parking availability."""
-import pickle
 import os
+import sys
+import pickle
+from datetime import datetime
 from typing import Dict, Optional
-import numpy as np
+
 from app.config import settings
 from app.services.feature_builder import build_features, get_feature_vector
 from app.services.confidence_service import calculate_confidence
 from app.models.prediction_model import AvailabilityLevel
 
 
+def _ml_src_path():
+    """Path to ml/src for importing ML predict module."""
+    backend_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    project_root = os.path.dirname(backend_dir)
+    return os.path.join(project_root, "ml", "src")
+
+
 class PredictionService:
     """Service for making parking availability predictions."""
-    
+
     def __init__(self):
-        """Initialize prediction service."""
+        """Initialize prediction service. Prefer ML model from ml/ if available."""
         self.model = None
-        self.load_model()
-    
-    def load_model(self):
-        """Load the trained ML model."""
-        model_path = os.path.join(
-            os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
-            settings.MODEL_PATH.replace("../", "")
-        )
-        
-        # Create a simple rule-based model if file doesn't exist
-        if not os.path.exists(model_path):
-            self.model = None
-        else:
-            try:
-                with open(model_path, 'rb') as f:
-                    self.model = pickle.load(f)
-            except Exception as e:
-                print(f"Error loading model: {e}")
-                self.model = None
-    
+        self.ml_available = False
+        self._ml_predict_fn = None
+        self._ml_model_path = None
+        self._ml_data_dir = None
+        self._init_ml_or_legacy()
+
+    def _init_ml_or_legacy(self):
+        """Try to load ML model from ml/ folder; otherwise keep rule-based fallback."""
+        if not settings.USE_ML_MODEL:
+            return
+        model_path = settings.ML_MODEL_PATH
+        data_dir = settings.ML_DATA_DIR
+        if not os.path.isfile(model_path) or not os.path.isdir(data_dir):
+            return
+        ml_src = _ml_src_path()
+        if ml_src not in sys.path:
+            sys.path.insert(0, ml_src)
+        try:
+            from predict import predict_occupancy_at_time
+            from predict import load_model
+            load_model(model_path=model_path, data_dir=data_dir)
+            self._ml_predict_fn = predict_occupancy_at_time
+            self._ml_model_path = model_path
+            self._ml_data_dir = data_dir
+            self.ml_available = True
+        except Exception as e:
+            print(f"ML model not used: {e}")
+
     def predict_occupancy(
         self,
         zone_id: int,
@@ -44,46 +61,53 @@ class PredictionService:
         events: list = None
     ) -> Dict:
         """Predict parking occupancy for given parameters.
-        
-        Args:
-            zone_id: Zone identifier
-            date_str: Date in YYYY-MM-DD format
-            hour: Hour of day
-            day_of_week: Day of week
-            events: List of events
-        
-        Returns:
-            Dictionary with prediction results
+        Uses ML model from ml/ folder when available, else rule-based.
         """
-        # Build features
         features = build_features(zone_id, date_str, hour, day_of_week, events)
-        
-        # Get feature vector
+
+        if self.ml_available and self._ml_predict_fn:
+            ml_zone_id = settings.ML_ZONE_ID_MAP.get(zone_id)
+            if ml_zone_id:
+                try:
+                    target_dt = datetime.strptime(
+                        f"{date_str} {hour:02d}:00:00",
+                        "%Y-%m-%d %H:%M:%S"
+                    )
+                    result = self._ml_predict_fn(
+                        ml_zone_id,
+                        target_dt,
+                        model_path=self._ml_model_path,
+                        data_dir=self._ml_data_dir,
+                    )
+                    occupancy = result.get("occupancy_percent", result.get("occupancy_rate", 0.5) * 100)
+                    confidence = result.get("confidence", 85)
+                    availability_level = self._occupancy_to_availability(occupancy)
+                    return {
+                        "occupancy": round(occupancy, 1),
+                        "availability_level": availability_level,
+                        "confidence": confidence,
+                        "features": features,
+                    }
+                except Exception as e:
+                    print(f"ML prediction error, using fallback: {e}")
+
+        # Fallback: rule-based or legacy pickle model
         feature_vector = get_feature_vector(features)
-        
-        # Make prediction
         if self.model:
             try:
                 occupancy = self.model.predict([feature_vector])[0]
-                # Ensure occupancy is between 0 and 100
                 occupancy = max(0, min(100, float(occupancy)))
-            except Exception as e:
-                print(f"Model prediction error: {e}")
+            except Exception:
                 occupancy = self._rule_based_prediction(features)
         else:
             occupancy = self._rule_based_prediction(features)
-        
-        # Calculate confidence
         confidence = calculate_confidence(features)
-        
-        # Determine availability level
         availability_level = self._occupancy_to_availability(occupancy)
-        
         return {
             "occupancy": round(occupancy, 1),
             "availability_level": availability_level,
             "confidence": confidence,
-            "features": features
+            "features": features,
         }
     
     def _rule_based_prediction(self, features: Dict) -> float:
