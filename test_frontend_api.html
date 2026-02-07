@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frontend API Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 { color: #333; }
+        h2 { color: #666; margin-top: 0; }
+        button {
+            background: #05A357;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #048a47; }
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .info { background: #d1ecf1; color: #0c5460; }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Frontend API Configuration Test</h1>
+    
+    <div class="test-section">
+        <h2>Step 1: Check Environment Variables</h2>
+        <button onclick="checkEnvVars()">Check VITE_API_URL</button>
+        <div id="env-result" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Step 2: Test Backend Health</h2>
+        <label>Backend URL:</label>
+        <input type="text" id="backend-url" placeholder="https://your-backend.onrender.com" />
+        <button onclick="testBackendHealth()">Test Backend Connection</button>
+        <div id="health-result" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Step 3: Test CORS</h2>
+        <button onclick="testCORS()">Test CORS Configuration</button>
+        <div id="cors-result" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Step 4: Test Signup API</h2>
+        <label>Full Name:</label>
+        <input type="text" id="full-name" value="Test User" />
+        <label>Email:</label>
+        <input type="email" id="email" value="test@example.com" />
+        <label>Username:</label>
+        <input type="text" id="username" value="testuser123" />
+        <label>Password:</label>
+        <input type="password" id="password" value="password123" />
+        <button onclick="testSignup()">Test Signup</button>
+        <div id="signup-result" class="result"></div>
+    </div>
+
+    <script>
+        // Get API URL from environment or use default
+        const API_URL = import.meta?.env?.VITE_API_URL || 'http://localhost:8001/api/v1';
+
+        function checkEnvVars() {
+            const result = document.getElementById('env-result');
+            result.className = 'result info';
+            
+            const envInfo = {
+                'VITE_API_URL (from import.meta.env)': import.meta?.env?.VITE_API_URL || 'NOT SET',
+                'API_URL (computed)': API_URL,
+                'Current Origin': window.location.origin,
+                'All env vars': import.meta?.env || 'Not available'
+            };
+            
+            result.textContent = JSON.stringify(envInfo, null, 2);
+            
+            if (!import.meta?.env?.VITE_API_URL) {
+                result.className = 'result error';
+                result.textContent += '\n\n⚠️ WARNING: VITE_API_URL is not set!\n';
+                result.textContent += 'You need to set this in Render dashboard:\n';
+                result.textContent += 'Frontend Service → Environment → Add Variable\n';
+                result.textContent += 'Key: VITE_API_URL\n';
+                result.textContent += 'Value: https://your-backend.onrender.com/api/v1';
+            }
+        }
+
+        async function testBackendHealth() {
+            const result = document.getElementById('health-result');
+            const backendUrl = document.getElementById('backend-url').value.trim();
+            
+            if (!backendUrl) {
+                result.className = 'result error';
+                result.textContent = 'Please enter your backend URL';
+                return;
+            }
+            
+            result.className = 'result info';
+            result.textContent = 'Testing backend connection...';
+            
+            try {
+                const healthUrl = backendUrl.replace(/\/api\/v1$/, '') + '/health';
+                console.log('Testing:', healthUrl);
+                
+                const response = await fetch(healthUrl, {
+                    method: 'GET',
+                    mode: 'cors'
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    result.className = 'result success';
+                    result.textContent = '✅ Backend is healthy!\n\n' + JSON.stringify(data, null, 2);
+                } else {
+                    result.className = 'result error';
+                    result.textContent = '❌ Backend returned error:\n\n' + JSON.stringify(data, null, 2);
+                }
+            } catch (error) {
+                result.className = 'result error';
+                result.textContent = '❌ Failed to connect to backend:\n\n' + error.message;
+                result.textContent += '\n\nPossible issues:';
+                result.textContent += '\n1. Backend is sleeping (wait 60 seconds and try again)';
+                result.textContent += '\n2. Backend URL is incorrect';
+                result.textContent += '\n3. CORS is not configured properly';
+                result.textContent += '\n4. Backend is not deployed';
+            }
+        }
+
+        async function testCORS() {
+            const result = document.getElementById('cors-result');
+            const backendUrl = document.getElementById('backend-url').value.trim() || API_URL.replace('/api/v1', '');
+            
+            result.className = 'result info';
+            result.textContent = 'Testing CORS configuration...';
+            
+            try {
+                const testUrl = backendUrl + '/api/v1/zones';
+                console.log('Testing CORS with:', testUrl);
+                
+                const response = await fetch(testUrl, {
+                    method: 'GET',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    result.className = 'result success';
+                    result.textContent = '✅ CORS is configured correctly!\n';
+                    result.textContent += 'Backend accepts requests from: ' + window.location.origin;
+                } else {
+                    result.className = 'result error';
+                    result.textContent = '❌ CORS test failed with status: ' + response.status;
+                }
+            } catch (error) {
+                result.className = 'result error';
+                result.textContent = '❌ CORS Error:\n\n' + error.message;
+                result.textContent += '\n\nThis usually means:';
+                result.textContent += '\n1. Backend CORS_ORIGINS does not include: ' + window.location.origin;
+                result.textContent += '\n2. Backend is not running';
+                result.textContent += '\n3. Network connectivity issue';
+            }
+        }
+
+        async function testSignup() {
+            const result = document.getElementById('signup-result');
+            const backendUrl = document.getElementById('backend-url').value.trim() || API_URL;
+            
+            const payload = {
+                full_name: document.getElementById('full-name').value,
+                email: document.getElementById('email').value,
+                username: document.getElementById('username').value,
+                password: document.getElementById('password').value
+            };
+            
+            result.className = 'result info';
+            result.textContent = 'Testing signup...\n\nURL: ' + backendUrl + '/auth/register\nPayload: ' + JSON.stringify(payload, null, 2);
+            
+            try {
+                const signupUrl = backendUrl.endsWith('/api/v1') 
+                    ? backendUrl + '/auth/register'
+                    : backendUrl + '/api/v1/auth/register';
+                    
+                console.log('Signup URL:', signupUrl);
+                console.log('Payload:', payload);
+                
+                const response = await fetch(signupUrl, {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    result.className = 'result success';
+                    result.textContent = '✅ Signup successful!\n\n' + JSON.stringify(data, null, 2);
+                } else {
+                    result.className = 'result error';
+                    result.textContent = '❌ Signup failed:\n\n' + JSON.stringify(data, null, 2);
+                }
+            } catch (error) {
+                result.className = 'result error';
+                result.textContent = '❌ Signup request failed:\n\n' + error.message;
+                result.textContent += '\n\nCheck browser console (F12) for more details';
+                console.error('Signup error:', error);
+            }
+        }
+
+        // Auto-run environment check on load
+        window.onload = () => {
+            checkEnvVars();
+        };
+    </script>
+</body>
+</html>
