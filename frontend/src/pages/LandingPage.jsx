@@ -45,12 +45,12 @@ function LandingPage() {
     }
 
     try {
-      const endpoint = isLogin ? '/api/v1/auth/login' : '/api/v1/auth/register'
+      const endpoint = isLogin ? '/auth/login' : '/auth/register'
       const payload = isLogin 
         ? { username: formData.username, password: formData.password }
         : formData
 
-      const response = await fetch(`${API_URL.replace('/api/v1', '')}${endpoint}`, {
+      const response = await fetch(`${API_URL}${endpoint}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
