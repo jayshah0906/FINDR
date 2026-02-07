@@ -2,6 +2,10 @@
 import os
 from typing import Optional
 from pydantic_settings import BaseSettings
+from dotenv import load_dotenv
+
+# Load .env file explicitly
+load_dotenv()
 
 
 def _project_root():
@@ -30,7 +34,7 @@ class Settings(BaseSettings):
     # Database Settings
     DATABASE_URL: str = os.getenv(
         "DATABASE_URL",
-        "sqlite:///./parking_prediction.db"
+        "mongodb://localhost:27017/parking_db"  # Default to local MongoDB
     )
     
     # Model Settings (legacy; used only if ML not enabled)
@@ -66,7 +70,10 @@ class Settings(BaseSettings):
     CORS_ORIGINS: list = [
         "http://localhost:3000",
         "http://localhost:5173",
+        "http://localhost:5174",
         "http://localhost:8080",
+        "http://127.0.0.1:5173",
+        "http://127.0.0.1:5174",
     ]
     
     # Prediction Settings

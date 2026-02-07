@@ -1,122 +1,67 @@
-"""Event routes."""
-from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy.orm import Session
+"""Event routes for MongoDB."""
+from fastapi import APIRouter, HTTPException
 from typing import List, Optional
 from datetime import datetime
-from app.database import get_db
+import json
+import os
 from app.models.request_response import EventResponse
 
 router = APIRouter()
 
-# In-memory events storage (can be replaced with database)
-EVENTS_STORAGE = [
-    # Zone 1 - Downtown Pike St
-    {
-        "id": 1,
-        "name": "Tech Innovation Summit",
-        "zone_id": 1,
-        "date": "2026-02-07",
-        "start_time": "09:00",
-        "end_time": "17:00",
-        "expected_impact": "High"
-    },
-    # Zone 2 - Downtown 1st Ave
-    {
-        "id": 2,
-        "name": "Business Conference",
-        "zone_id": 2,
-        "date": "2026-02-07",
-        "start_time": "09:00",
-        "end_time": "17:00",
-        "expected_impact": "Medium"
-    },
-    # Zone 3 - Downtown 3rd Ave
-    {
-        "id": 3,
-        "name": "Weekend Market",
-        "zone_id": 3,
-        "date": "2026-02-08",
-        "start_time": "10:00",
-        "end_time": "16:00",
-        "expected_impact": "High"
-    },
-    # Zone 4 - Capitol Hill - Broadway
-    {
-        "id": 4,
-        "name": "Capitol Hill Block Party",
-        "zone_id": 4,
-        "date": "2026-07-24",
-        "start_time": "12:00",
-        "end_time": "22:00",
-        "expected_impact": "High"
-    },
-    # Zone 6 - Stadium District - Occidental
-    {
-        "id": 5,
-        "name": "Seahawks vs 49ers",
-        "zone_id": 6,
-        "date": "2026-09-13",
-        "start_time": "13:00",
-        "end_time": "17:00",
-        "expected_impact": "High"
-    },
-    # Zone 6 - Stadium District (Super Bowl Watch Party)
-    {
-        "id": 6,
-        "name": "Super Bowl Watch Party",
-        "zone_id": 6,
-        "date": "2026-02-08",
-        "start_time": "15:00",
-        "end_time": "20:00",
-        "expected_impact": "High"
-    },
-    # Zone 7 - Stadium District - 1st Ave S
-    {
-        "id": 7,
-        "name": "Mariners vs Yankees",
-        "zone_id": 7,
-        "date": "2026-04-17",
-        "start_time": "19:00",
-        "end_time": "22:00",
-        "expected_impact": "High"
-    },
-    # Zone 8 - Capitol Hill - Pike St
-    {
-        "id": 8,
-        "name": "Seattle International Film Festival",
-        "zone_id": 8,
-        "date": "2026-05-16",
-        "start_time": "10:00",
-        "end_time": "22:00",
-        "expected_impact": "High"
-    },
-    # Zone 9 - University District - 45th St
-    {
-        "id": 9,
-        "name": "University District Street Fair",
-        "zone_id": 9,
-        "date": "2026-05-23",
-        "start_time": "10:00",
-        "end_time": "18:00",
-        "expected_impact": "High"
-    },
-    # Zone 10 - Fremont - Fremont Ave
-    {
-        "id": 10,
-        "name": "Fremont Solstice Parade",
-        "zone_id": 10,
-        "date": "2026-06-20",
-        "start_time": "13:00",
-        "end_time": "17:00",
-        "expected_impact": "High"
-    },
-]
+# Load events from JSON file
+def load_events_from_file():
+    """Load events from the ML data folder."""
+    events_path = os.path.join(os.path.dirname(__file__), '../../../ml/data/processed/events.json')
+    try:
+        with open(events_path, 'r') as f:
+            events_data = json.load(f)
+        
+        # Transform to match our API format
+        transformed_events = []
+        zone_mapping = {
+            "BF_001": 1, "BF_002": 2, "BF_003": 3, "BF_004": 4,
+            "BF_045": 6, "BF_046": 7, "BF_047": 6, "BF_048": 7,
+            "BF_120": 4, "BF_121": 8, "BF_122": 8,
+            "BF_200": 9, "BF_201": 9, "BF_202": 10, "BF_203": 10,
+            "BF_005": 1
+        }
+        
+        for idx, event in enumerate(events_data, 1):
+            # Get all affected zones
+            affected_zones = []
+            for zone_code in event.get('nearby_zones', []):
+                if zone_code in zone_mapping:
+                    zone_id = zone_mapping[zone_code]
+                    if zone_id not in affected_zones:
+                        affected_zones.append(zone_id)
+            
+            # Create event entry for each affected zone
+            for zone_id in affected_zones:
+                transformed_events.append({
+                    "id": f"{event['event_id']}_{zone_id}",
+                    "name": event['event_name'],
+                    "zone_id": zone_id,
+                    "date": event['date'],
+                    "start_time": event['start_time'],
+                    "end_time": "23:00",  # Default end time
+                    "expected_impact": event['impact_level'].replace('_', ' ').title(),
+                    "event_type": event['event_type'],
+                    "venue": event['venue'],
+                    "expected_attendance": event['expected_attendance']
+                })
+        
+        return transformed_events
+    except Exception as e:
+        print(f"Error loading events: {e}")
+        return []
+
+# Load events at startup
+EVENTS_STORAGE = load_events_from_file()
 
 
 async def get_events_for_zone(
     zone_id: int,
-    date: str,
-    db: Session
+    date: str
 ) -> List[EventResponse]:
     """Get events for a specific zone on a given date."""
     events = [
@@ -130,8 +75,7 @@ async def get_events_for_zone(
 @router.get("/events", response_model=List[EventResponse])
 async def get_events(
     zone_id: Optional[int] = None,
-    date: Optional[str] = None,
-    db: Session = Depends(get_db)
+    date: Optional[str] = None
 ):
     """Get all events, optionally filtered by zone and date."""
     events = EVENTS_STORAGE
@@ -145,8 +89,30 @@ async def get_events(
     return [EventResponse(**event) for event in events]
 
 
-@router.get("/events/{event_id}", response_model=EventResponse)
-async def get_event(event_id: int, db: Session = Depends(get_db)):
+@router.get("/events/date/{date}")
+async def get_events_by_date(date: str):
+    """Get all events for a specific date with zone information."""
+    events = [e for e in EVENTS_STORAGE if e["date"] == date]
+    
+    # Group by zone
+    zones_with_events = {}
+    for event in events:
+        zone_id = event["zone_id"]
+        if zone_id not in zones_with_events:
+            zones_with_events[zone_id] = []
+        zones_with_events[zone_id].append(event)
+    
+    return {
+        "date": date,
+        "total_events": len(events),
+        "zones_affected": list(zones_with_events.keys()),
+        "events": events,
+        "zones_with_events": zones_with_events
+    }
+
+
+@router.get("/events/{event_id}")
+async def get_event(event_id: str):
     """Get a specific event by ID."""
     event = next((e for e in EVENTS_STORAGE if e["id"] == event_id), None)
     if not event:

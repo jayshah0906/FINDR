@@ -2,6 +2,7 @@
 import sys
 from app.database import engine, Base
 from app.models.zone_model import Zone
+from app.models.user_model import User
 
 def init_database():
     """Create all database tables."""

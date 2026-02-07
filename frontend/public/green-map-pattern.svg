@@ -1,0 +1,79 @@
+<svg width="1200" height="800" xmlns="http://www.w3.org/2000/svg">
+  <!-- Light green background -->
+  <rect width="1200" height="800" fill="#a8d5ba"/>
+  
+  <!-- Street grid pattern -->
+  <g stroke="#ffffff" stroke-width="2" fill="none" opacity="0.6">
+    <!-- Horizontal streets -->
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="0" y1="600" x2="1200" y2="600"/>
+    <line x1="0" y1="700" x2="1200" y2="700"/>
+    
+    <!-- Vertical streets -->
+    <line x1="100" y1="0" x2="100" y2="800"/>
+    <line x1="200" y1="0" x2="200" y2="800"/>
+    <line x1="300" y1="0" x2="300" y2="800"/>
+    <line x1="400" y1="0" x2="400" y2="800"/>
+    <line x1="500" y1="0" x2="500" y2="800"/>
+    <line x1="600" y1="0" x2="600" y2="800"/>
+    <line x1="700" y1="0" x2="700" y2="800"/>
+    <line x1="800" y1="0" x2="800" y2="800"/>
+    <line x1="900" y1="0" x2="900" y2="800"/>
+    <line x1="1000" y1="0" x2="1000" y2="800"/>
+    <line x1="1100" y1="0" x2="1100" y2="800"/>
+    
+    <!-- Diagonal streets -->
+    <line x1="0" y1="0" x2="400" y2="400"/>
+    <line x1="800" y1="0" x2="1200" y2="400"/>
+    <line x1="0" y1="400" x2="600" y2="800"/>
+    <line x1="600" y1="0" x2="1200" y2="600"/>
+    
+    <!-- City blocks -->
+    <rect x="50" y="50" width="80" height="80" stroke-width="1.5"/>
+    <rect x="150" y="150" width="100" height="60" stroke-width="1.5"/>
+    <rect x="350" y="80" width="120" height="90" stroke-width="1.5"/>
+    <rect x="550" y="200" width="90" height="70" stroke-width="1.5"/>
+    <rect x="750" y="120" width="110" height="80" stroke-width="1.5"/>
+    <rect x="950" y="250" width="100" height="100" stroke-width="1.5"/>
+    <rect x="200" y="350" width="130" height="90" stroke-width="1.5"/>
+    <rect x="450" y="400" width="100" height="80" stroke-width="1.5"/>
+    <rect x="700" y="450" width="120" height="100" stroke-width="1.5"/>
+    <rect x="100" y="550" width="90" height="70" stroke-width="1.5"/>
+    <rect x="400" y="600" width="110" height="80" stroke-width="1.5"/>
+    <rect x="800" y="550" width="100" height="90" stroke-width="1.5"/>
+    
+    <!-- Curved roads -->
+    <path d="M 0 200 Q 300 250 600 200 T 1200 200" stroke-width="2.5"/>
+    <path d="M 200 0 Q 250 300 200 600 T 200 800" stroke-width="2.5"/>
+    <path d="M 800 0 Q 750 400 800 800" stroke-width="2.5"/>
+    <path d="M 0 600 Q 400 550 800 600 T 1200 600" stroke-width="2.5"/>
+    
+    <!-- Parking areas (small rectangles) -->
+    <g stroke-width="1" opacity="0.8">
+      <rect x="80" y="180" width="15" height="8"/>
+      <rect x="280" y="280" width="15" height="8"/>
+      <rect x="480" y="180" width="15" height="8"/>
+      <rect x="680" y="380" width="15" height="8"/>
+      <rect x="880" y="280" width="15" height="8"/>
+      <rect x="180" y="480" width="15" height="8"/>
+      <rect x="580" y="580" width="15" height="8"/>
+      <rect x="780" y="480" width="15" height="8"/>
+    </g>
+    
+    <!-- Intersections (circles) -->
+    <g fill="#ffffff" opacity="0.5">
+      <circle cx="200" cy="200" r="4"/>
+      <circle cx="400" cy="300" r="4"/>
+      <circle cx="600" cy="400" r="4"/>
+      <circle cx="800" cy="200" r="4"/>
+      <circle cx="300" cy="500" r="4"/>
+      <circle cx="700" cy="600" r="4"/>
+      <circle cx="500" cy="600" r="4"/>
+      <circle cx="900" cy="400" r="4"/>
+    </g>
+  </g>
+</svg>

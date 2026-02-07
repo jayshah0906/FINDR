@@ -16,13 +16,16 @@ class ZoneResponse(BaseModel):
 class EventResponse(BaseModel):
     """Event response model."""
     
-    id: int
+    id: str
     name: str
     zone_id: int
     date: str
     start_time: str
     end_time: str
-    expected_impact: str  # "High", "Medium", "Low"
+    expected_impact: str  # "High", "Medium", "Low", "Very High"
+    event_type: Optional[str] = None
+    venue: Optional[str] = None
+    expected_attendance: Optional[int] = None
 
 
 class ErrorResponse(BaseModel):

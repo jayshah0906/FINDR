@@ -1,9 +1,7 @@
-"""Prediction routes."""
-from fastapi import APIRouter, HTTPException, Depends
-from sqlalchemy.orm import Session
+"""Prediction routes for MongoDB."""
+from fastapi import APIRouter, HTTPException
 from datetime import datetime
-from app.database import get_db
-from app.models.zone_model import Zone
+from app.database import zones_collection
 from app.models.prediction_model import PredictionRequest, PredictionResponse
 from app.services.prediction_service import prediction_service
 from app.routes.events import get_events_for_zone
@@ -12,14 +10,11 @@ router = APIRouter()
 
 
 @router.post("/predict", response_model=PredictionResponse)
-async def predict_availability(
-    request: PredictionRequest,
-    db: Session = Depends(get_db)
-):
+async def predict_availability(request: PredictionRequest):
     """Predict parking availability for a zone at a specific time."""
     
     # Get zone information
-    zone = db.query(Zone).filter(Zone.id == request.zone_id).first()
+    zone = await zones_collection.find_one({"id": request.zone_id})
     if not zone:
         from app.config import settings
         default_zone = next((z for z in settings.DEFAULT_ZONES if z["id"] == request.zone_id), None)
@@ -27,7 +22,7 @@ async def predict_availability(
             raise HTTPException(status_code=404, detail="Zone not found")
         zone_name = default_zone["name"]
     else:
-        zone_name = zone.name
+        zone_name = zone["name"]
     
     # Get zone capacity from ML config
     from app.config import settings
@@ -48,7 +43,7 @@ async def predict_availability(
         total_spaces = 20  # Default fallback
     
     # Get events for the zone
-    events = await get_events_for_zone(request.zone_id, request.date, db)
+    events = await get_events_for_zone(request.zone_id, request.date)
     
     # Make prediction
     prediction_result = prediction_service.predict_occupancy(

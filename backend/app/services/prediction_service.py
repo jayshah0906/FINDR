@@ -2,6 +2,7 @@
 import os
 import sys
 import pickle
+import logging
 from datetime import datetime
 from typing import Dict, Optional
 
@@ -9,6 +10,10 @@ from app.config import settings
 from app.services.feature_builder import build_features, get_feature_vector
 from app.services.confidence_service import calculate_confidence
 from app.models.prediction_model import AvailabilityLevel
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 
 def _ml_src_path():
@@ -41,24 +46,52 @@ class PredictionService:
     def _init_ml_or_legacy(self):
         """Try to load ML model from ml/ folder; otherwise keep rule-based fallback."""
         if not settings.USE_ML_MODEL:
+            logger.warning("⚠️  USE_ML_MODEL is disabled in config!")
             return
+        
         model_path = settings.ML_MODEL_PATH
         data_dir = settings.ML_DATA_DIR
-        if not os.path.isfile(model_path) or not os.path.isdir(data_dir):
+        
+        logger.info(f"Attempting to load ML model...")
+        logger.info(f"  Model path: {model_path}")
+        logger.info(f"  Data dir: {data_dir}")
+        
+        if not os.path.isfile(model_path):
+            logger.error(f"❌ ML model file NOT FOUND: {model_path}")
             return
+        
+        if not os.path.isdir(data_dir):
+            logger.error(f"❌ ML data directory NOT FOUND: {data_dir}")
+            return
+        
+        # Check model file size
+        model_size_mb = os.path.getsize(model_path) / (1024 * 1024)
+        logger.info(f"  Model size: {model_size_mb:.1f} MB")
+        
         ml_src = _ml_src_path()
         if ml_src not in sys.path:
             sys.path.insert(0, ml_src)
+        
         try:
             from predict import predict_occupancy_at_time
             from predict import load_model
+            
+            logger.info("  Loading ML model...")
             load_model(model_path=model_path, data_dir=data_dir)
+            
             self._ml_predict_fn = predict_occupancy_at_time
             self._ml_model_path = model_path
             self._ml_data_dir = data_dir
             self.ml_available = True
+            
+            logger.info("✅ ML model loaded successfully!")
+            logger.info(f"   Zone mappings: {len(settings.ML_ZONE_ID_MAP)} zones configured")
+            
         except Exception as e:
-            print(f"ML model not used: {e}")
+            logger.error(f"❌ Failed to load ML model: {e}")
+            logger.error("   Falling back to rule-based predictions")
+            import traceback
+            traceback.print_exc()
 
     def predict_occupancy(
         self,
@@ -90,16 +123,25 @@ class PredictionService:
                     occupancy = result.get("occupancy_percent", result.get("occupancy_rate", 0.5) * 100)
                     confidence = result.get("confidence", 85) / 100.0  # Convert to 0-1 range
                     availability_level = self._occupancy_to_availability(occupancy)
+                    
+                    logger.debug(f"✅ ML prediction for zone {zone_id} ({ml_zone_id}): {occupancy:.1f}% occupancy")
+                    
                     return {
                         "occupancy": round(occupancy, 1),
                         "availability_level": availability_level,
                         "confidence": confidence,
                         "features": features,
+                        "ml_used": True  # Flag to track ML usage
                     }
                 except Exception as e:
-                    print(f"ML prediction error, using fallback: {e}")
+                    logger.error(f"❌ ML prediction error for zone {zone_id}: {e}")
+                    logger.error("   Using fallback rule-based prediction")
+            else:
+                logger.warning(f"⚠️  Zone {zone_id} not mapped to ML zone ID")
 
         # Fallback: rule-based or legacy pickle model
+        logger.warning(f"⚠️  Using FALLBACK prediction for zone {zone_id} (ML not available)")
+        
         feature_vector = get_feature_vector(features)
         if self.model:
             try:
@@ -116,6 +158,7 @@ class PredictionService:
             "availability_level": availability_level,
             "confidence": confidence,
             "features": features,
+            "ml_used": False  # Flag to track ML usage
         }
     
     def _rule_based_prediction(self, features: Dict) -> float:

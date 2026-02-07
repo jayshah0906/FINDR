@@ -43,7 +43,8 @@ Thumbs.db
 *.log
 logs/
 
-# Model files
-*.pkl
+# Model files (but keep the trained model)
 *.h5
 *.model
+# Allow the trained parking model
+!ml/models/parking_model.pkl
