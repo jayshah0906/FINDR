@@ -74,9 +74,8 @@ class Settings(BaseSettings):
         "http://localhost:8080",
         "http://127.0.0.1:5173",
         "http://127.0.0.1:5174",
-        # Add your production URLs here after deployment:
-        # "https://your-project.vercel.app",
-        # "https://your-frontend.onrender.com",
+        # Production URLs
+        "https://ai-based-parking-availability-predictor-3.onrender.com",
     ]
     
     # Prediction Settings
